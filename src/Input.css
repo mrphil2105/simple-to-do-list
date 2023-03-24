@@ -1,0 +1,11 @@
+.input {
+    display: flex;
+}
+
+.input > input {
+    flex-grow: 3;
+}
+
+.input > button {
+    flex-grow: 1;
+}

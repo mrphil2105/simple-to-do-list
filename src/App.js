@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Item } from "./Item";
+import { Input } from "./Input";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [items, setItems] = useState([]);
+    const [idCounter, setIdCounter] = useState(0);
+
+    function handleAdd(name) {
+        const item = {
+            id: idCounter + 1,
+            name // same as 'name: name'
+        };
+        setIdCounter(idCounter + 1)
+        setItems([...items, item]);
+    }
+
+    function handleDelete(id) {
+        const newItems = items.filter(i => i.id !== id);
+        setItems(newItems);
+    }
+
+    return (
+        <>
+            <Input onAdd={handleAdd} />
+            {items.map(i => (
+                <Item key={i.id} item={i} onDelete={handleDelete} />
+            ))}
+        </>
+    );
 }
 
 export default App;
